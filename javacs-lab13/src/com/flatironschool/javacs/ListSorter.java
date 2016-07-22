@@ -73,15 +73,12 @@ public class ListSorter<T> {
 		List<T> list1 = new LinkedList<T>(list.subList(0,list.size()/2));
 		List<T> list2 = new LinkedList<T>(list.subList(list.size()/2,list.size()));
 
-		//Sort the halves using Collections.sort or insertionSort
-		Collections.sort(list1,comparator);
-		Collections.sort(list2,comparator);
+		//Sort the halves using Collections.sort or insertionSort or recursion
+		List<T> sorted1 = mergeSort(list1,comparator);
+		List<T> sorted2 = mergeSort(list2,comparator);
 
-		System.out.println("list1:"+list1);
-		System.out.println("list2:"+list2);
 		//Merge the sorted halves into a complete sorted list
-		List<T> sorted = merge(list1,list2,comparator);
-		System.out.println("list:"+sorted);
+		List<T> sorted = merge(sorted1,sorted2 ,comparator);
         return sorted;
 	}
 
@@ -97,7 +94,7 @@ public class ListSorter<T> {
 				sorted.addAll(list2);
 			}
 			else if(comparator.compare(list2.get(0),list1.get(0)) <= 0) //less than
-					sorted.add(list2.remove(0)); //ineffitient removing from front, need to use linkedlists
+					sorted.add(list2.remove(0)); //linkedlists make remove(i) = O(1)
 			else
 					sorted.add(list1.remove(0));
 			}
