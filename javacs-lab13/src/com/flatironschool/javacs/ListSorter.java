@@ -111,6 +111,14 @@ public class ListSorter<T> {
 	 */
 	public void heapSort(List<T> list, Comparator<T> comparator) {
         // FILL THIS IN!
+		PriorityQueue<T> heap = new PriorityQueue<T>(list.size(),comparator);
+		//add elements to heap
+		for(T item : list)
+			heap.add(item);
+		//remove in sorted order
+		list.clear();
+		while(!heap.isEmpty())
+			list.add(heap.remove());
 	}
 
 	
