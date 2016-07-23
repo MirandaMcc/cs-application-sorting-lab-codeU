@@ -133,7 +133,25 @@ public class ListSorter<T> {
 	 */
 	public List<T> topK(int k, List<T> list, Comparator<T> comparator) {
         // FILL THIS IN!
-        return null;
+		//PriorityQueue is a minheap - first element is smallest
+		PriorityQueue<T> heap = new PriorityQueue<T>(list.size(),comparator); 
+		//add elements to heap
+		for(T item : list)
+		{
+			//remove smallest if new item is larger
+			if(heap.size() < k)
+				heap.add(item);
+			else if(comparator.compare(item,heap.peek())>0){
+				heap.remove();
+				heap.add(item);
+			}
+		}
+		//remove all items in sorted order
+		List<T> largest = new ArrayList<T>();
+		while(!heap.isEmpty())
+			largest.add(heap.remove());
+
+        return largest;
 	}
 
 	
